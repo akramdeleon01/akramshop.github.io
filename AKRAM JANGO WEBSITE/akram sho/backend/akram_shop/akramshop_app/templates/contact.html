@@ -1,0 +1,49 @@
+{% extends "header.html" %}
+{% load static %}  
+
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row p-5 text-center">
+            <h2>Contact</h2>
+            {% if messages %}
+                <div class="alert alert-success" role="alert">
+                    {% for message in messages %}
+                    <h5  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </h5>
+                    {% endfor %}
+                  </div>
+            {% endif %}
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form action="/contactform" method="post">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Name</span>
+                        <input type="text" class="form-control" placeholder="Name" name="Name" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Email</span>
+                        <input type="email" class="form-control" placeholder="Email" name="Email" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Subject</span>
+                        <input type="text" class="form-control" placeholder="Subject" name="Subject" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">Message</span>
+                        <textarea class="form-control" name="message" aria-label="With textarea"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="submit" class="form-control m-5 btn btn-primary" value="Submit">
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

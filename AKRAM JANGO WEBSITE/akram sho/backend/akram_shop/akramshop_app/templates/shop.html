@@ -1,0 +1,97 @@
+{% extends "header.html" %}
+{% load static %}  
+
+{% block content %}
+
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static '/img/banner_cart.png' %}" class="d-block w-100" alt="...">
+          </div>
+        </div>
+      </div>
+
+
+      <section>
+        <div class="container-fluid px-3">
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="row p-5 mt-3">
+                <form action="/search">
+                  <div class="col-md-12">
+                      <select class="form-select my-3" name="id_cat" aria-label="Default select example">
+                          <option value="0" selected>search by</option>
+                          {% for cat in Category %}
+                          <option value="{{cat.id}}">{{cat.name}}</option>
+                          {% endfor %}
+                        </select>
+                  </div>
+                  <div class="col-md-12 text-center">
+                      <div class="input-group mb-3 my-3">
+                          <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                          <input type="text" class="form-control" name="name" placeholder="search" aria-label="search" aria-describedby="basic-addon1">
+                        </div>
+                  </div>
+  
+                  <div class="col-md-12">
+                      <span>MIN PRICE $</span>
+                      <input type="number" class="form-control" name="min_price" value="0" placeholder="0">
+                  </div>
+                  <div class="col-md-12">
+                    <span>MAX PRICE $</span>
+                    <input type="number" class="form-control" name="max_price" value='1000' placeholder="1000">
+                </div>
+  
+                  <div class="col-md-12">
+                      <button type="submit" class="btn btn-primary w-100 mt-3 mx-auto d-block"><i class="bi bi-search mx-2"></i> search</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="row mt-5">
+
+                {% for pro in Product %} 
+                  {%if pro.id %}
+                    <div class="col-md-3 mt-3">
+                        <div class="card">
+  
+                          {% for img in Image %}
+  
+                            {% if img.id_product_id == pro.id %}
+                            <img src="{% static '/img/products/' %}{{img.image}}" class="card-img-top" alt="...">
+                            {% endif %}
+                            
+                          {% endfor %}
+  
+                            <div class="card-body text-center">
+                              <h6 class="card-title">{{pro.name}}</h6>
+                              <h5 class="card-title">{{pro.price}}$</h5>
+                              <a href="/add to cart/{{pro.id}}" class="btn btn-primary mt-1 my-auto d-block">add to cart <i class="bi bi-cart-check"></i></a>
+                              <a href="/product/{{pro.id}}" class="btn btn-primary mt-1 my-auto d-block">show details <i class="bi bi-bag"></i></a>
+                            </div>
+                          </div>
+                    </div>
+  
+                  {% else %}
+                    <div class="col-md-12">
+                      <h1>NO PRODUCTS</h1>
+                    </div>
+                  {% endif %}
+  
+                {% endfor %}
+  
+              
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      {% endblock %}

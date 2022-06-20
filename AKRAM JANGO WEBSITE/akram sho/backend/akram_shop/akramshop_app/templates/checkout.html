@@ -1,0 +1,138 @@
+{% extends "header.html" %}
+{% load static %}
+
+{% block content %}
+
+<section>
+    <div class="conatiner">
+        <form action="/order" method="post">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col-md-7">
+                    <div class="row m-5 text-center">
+                        <h1>Information for client</h1>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">FULL NAME</span>
+                                <input type="text" class="form-control" name="NAME" placeholder="NAME" aria-label="NAME"
+                                    aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">ADDRESS</span>
+                                <input type="text" class="form-control" name="ADDRESS" placeholder="ADDRESS"
+                                    aria-label="ADDRESS" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">PHONE</span>
+                                <input type="tel" class="form-control" name="PHONE" placeholder="PHONE"
+                                    aria-label="PHONE" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">EMAIL</span>
+                                <input type="email" class="form-control" name="EMAIL" placeholder="EMAIL"
+                                    aria-label="EMAIL" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-5 w-75 mx-auto d-block">
+                    <div class="row m-5 text-center">
+                        <h1>Information for client cart</h1>
+                    </div>
+
+                    <div class="row  justify-content-center">
+                        <div class="col-md-8">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">NAME CART</span>
+                                <input type="text" class="form-control" name="NAME CART" placeholder="NAME CART"
+                                    aria-label="NAME CART" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">NUMBER CART</span>
+                                <input type="text" class="form-control" name="NUMBER CART" placeholder="*************"
+                                    aria-label="NUMBER CART" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">DATE</span>
+                                <input type="text" class="form-control" name="DATE CART" placeholder="00/00"
+                                    aria-label="DATE" aria-describedby="basic-addon1">
+                                <span class="input-group-text" id="basic-addon1">CVC</span>
+                                <input type="text" class="form-control" name="CVC" placeholder="***" aria-label="CVC"
+                                    aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <button type="submite" class="btn btn-primary w-100 mx-auto d-block">Pyement</button>
+
+                            {% if messages %}
+                            <div class="alert alert-success" role="alert">
+                                {% for message in messages %}
+                                <h5 {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </h5>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 card justify-content-center bg-primary">
+
+                    <div class="row bg-primary">
+                        <div class="col-md-12 d-inline-flex">
+                            <div class="h6 m-4">NAME PRODUCT</div>
+                            <div class="h3 m-4">X</div>
+                            <div class="h5 m-4">Price</div>
+                        </div>
+                    </div>
+
+                    {% for pro in Product %}
+
+                    {% for itm_id in itmes_id %}
+
+                    {% if itm_id == pro.id %}
+
+                    <div class="row card bg-primary">
+                        <div class="col-md-12 d-inline-flex">
+                            <div class="h6 m-4">{{pro.name}}</div>
+                            <div class="h3 m-4">X</div>
+                            <div class="h5 m-4 price">{{pro.price}}</div>
+                            <a href="/delete_itmes/{{pro.id}}/checkout" class="h6 m-4">X</a>
+                        </div>
+                    </div>
+
+                    {% endif %}
+
+                    {% endfor %}
+
+                    {% endfor %}
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="h3 m-4"><strong>Total</strong></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="h5 m-4">X</div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="h3 m-4"><strong id="result_price">0</strong>$</div>
+                        </div>
+                        <hr>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<script src="{% static '/js/script.js' %}"></script>
+
+{% endblock %}

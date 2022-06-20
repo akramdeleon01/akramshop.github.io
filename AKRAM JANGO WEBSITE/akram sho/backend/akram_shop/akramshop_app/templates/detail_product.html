@@ -1,0 +1,67 @@
+{% extends "header.html" %}
+{% load static %}  
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static '/css/dp.css' %}">
+
+      <section>
+          {% for pro in Product %}
+
+          <div class="container">
+            <div class="card">
+              <div class="container-fliud">
+                <div class="wrapper row">
+                  <div class="preview col-md-6">
+                    
+                    <div class="preview-pic tab-content">
+                      {% for img in Image %}
+                        <div class="tab-pane active" id="pic-1"><img src="{% static '/img/products/' %}{{img.image}}" /></div>
+                      {% endfor %}
+                    </div>
+                    <ul class="preview-thumbnail nav nav-tabs">
+                      {% for img in Image %}
+                      <li><a data-target="#pic-1" data-toggle="tab"><img src="{% static '/img/products/' %}{{img.image}}" /></a></li>
+                      {% endfor %}
+                    </ul>
+                    
+                  </div>
+                  <div class="details col-md-6">
+                    <h3 class="product-title">{{pro.name}}</h3>
+                    <div class="rating">
+                      <div class="stars">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                      </div>
+                      <span class="review-no">41 reviews</span>
+                    </div>
+                    <p class="product-description">{{pro.description}}</p>
+                    <h4 class="price">current price: <span>${{pro.price}}</span></h4>
+                    <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+                    <h5 class="sizes">sizes:
+                      {% for size in Size %}
+                      <span class="size" data-toggle="tooltip" title="small">{{size.name}}</span>
+                      {% endfor %}
+                    </h5>
+                    <h5 class="colors">colors:
+                      <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
+                      {% for col in color %}
+                      <span class="color" style="background:{{col.color_code}} !important;" ></span>
+                      {% endfor %}
+                    </h5>
+                    <div class="action">
+                      <a href="/add to cart/{{pro.id}}" class="add-to-cart btn btn-default w-50" type="button">add to cart</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         {% endfor %}
+      </section>
+
+
+      {% endblock %}

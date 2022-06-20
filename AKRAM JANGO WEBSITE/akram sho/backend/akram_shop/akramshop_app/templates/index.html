@@ -1,0 +1,59 @@
+{% extends "header.html" %}
+{% load static %}  
+
+{% block content %}
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static '/img/bann1.webp' %}" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+
+      <section>
+        <div class="container">
+            <div class="row p-5 mt-3">
+                <div class="col-md-12 text-center">
+                    <h3>our products</h3>
+                </div>
+            </div>
+            <div class="row">
+
+              {% for pro in Product %} 
+                <div class="col-md-3 mt-3">
+                    <div class="card">
+
+                      {% for img in Image %}
+
+                        {% if img.id_product_id == pro.id %}
+                        <img src="{% static '/img/products/' %}{{img.image}}" class="card-img-top" alt="...">
+                        {% endif %}
+                        
+                      {% endfor %}
+
+                        <div class="card-body text-center">
+                          <h5 class="card-title">{{pro.name}}</h5>
+                          <h5 class="card-title">{{pro.price}}$</h5>
+                          <a href="/add to cart/{{pro.id}}" class="btn btn-primary mt-1 my-auto d-block">add to cart <i class="bi bi-cart-check"></i></a>
+                          <a href="/product/{{pro.id}}" class="btn btn-primary mt-1 my-auto d-block">show details <i class="bi bi-bag"></i></a>
+                        </div>
+                      </div>
+                </div>
+              {% endfor %}
+              
+            </div>
+        </div>
+      </section>
+    
+      {% endblock %}
+
+
